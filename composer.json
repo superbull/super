@@ -1,0 +1,30 @@
+{
+    "name": "superbull/super",
+    "description": "Superbull super",
+    "type": "library",
+    "keywords": ["Superbull", "Super", "HATEOAS", "PHP", "PSR-7"],
+    "homepage": "https://github.com/superbull/super",
+    "license": "Apache 2.0",
+    "authors": [
+        {
+            "name":"Deng Zhi Cheng",
+            "email":"superbulldeng@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/superbull/super/issues",
+        "source": "https://github.com/superbull/super"
+    },
+    "require": {
+        "php":"^5.5.0||^7.0.0",
+        "psr/http-message-implementation": "^1.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.4.0||^5.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Superbull\\Super\\": "src/"
+        }
+    }
+}
