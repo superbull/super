@@ -2,6 +2,8 @@
 namespace Superbull\Super\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 class Request implements RequestInterface
 {
