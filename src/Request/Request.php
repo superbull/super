@@ -59,11 +59,145 @@ class Request implements RequestInterface
     /**
      * @inheritDoc
      */
+    public function getProtocolVersion()
+    {
+        return $this->serverRequest->getProtocolVersion();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withProtocolVersion($version)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withProtocolVersion($version);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getHeaders()
+    {
+        return $this->serverRequest->getHeaders();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function hasHeader($name)
+    {
+        return $this->serverRequest->hasHeader($name);
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getHeader($name)
+    {
+        return $this->serverRequest->getHeader($name);
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getHeaderLine($name)
+    {
+        return $this->serverRequest->getHeaderLine($name);
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withHeader($name, $value)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withHeader($name, $value);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withAddedHeader($name, $value)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withAddedHeader($name, $value);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withoutHeader($name)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withoutHeader($name);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getBody()
+    {
+        return $this->serverRequest->getBody();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withBody(StreamInterface $body)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withBody($body);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getRequestTarget()
+    {
+        return $this->serverRequest->getRequestTarget();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withRequestTarget($requestTarget)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withRequestTarget($requestTarget);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getMethod()
+    {
+        return $this->serverRequest->getMethod();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withMethod($method)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withMethod($method);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getUri()
+    {
+        return $this->serverRequest->getUri();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function withUri(UriInterface $uri, $preserveHost = false)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withUri($uri, $preserveHost);
+        return $self;
+    }
+    /**
+     * @inheritDoc
+     */
     public function getServerParams()
     {
         return $this->serverRequest->getServerParams();
     }
-
     /**
      * @inheritDoc
      */
@@ -71,7 +205,6 @@ class Request implements RequestInterface
     {
         return $this->serverRequest->getCookieParams();
     }
-
     /**
      * @inheritDoc
      */
@@ -81,7 +214,6 @@ class Request implements RequestInterface
         $self->serverRequest = $this->serverRequest->withCookieParams($cookies);
         return $self;
     }
-
     /**
      * @inheritDoc
      */
@@ -89,7 +221,6 @@ class Request implements RequestInterface
     {
         return $this->serverRequest->getQueryParams();
     }
-
     /**
      * @inheritDoc
      */
@@ -100,7 +231,6 @@ class Request implements RequestInterface
         $self->initializeParsedQueryParams();
         return $self;
     }
-
     /**
      * @inheritDoc
      */
@@ -108,7 +238,6 @@ class Request implements RequestInterface
     {
         return $this->serverRequest->getUploadedFiles();
     }
-
     /**
      * @inheritDoc
      */
@@ -118,7 +247,6 @@ class Request implements RequestInterface
         $self->serverRequest = $this->serverRequest->withUploadedFiles($uploadedFiles);
         return $self;
     }
-
     /**
      * @inheritDoc
      */
@@ -132,7 +260,6 @@ class Request implements RequestInterface
         }
         return $this->serverRequest->getParsedBody();
     }
-
     /**
      * @inheritDoc
      */
@@ -142,7 +269,6 @@ class Request implements RequestInterface
         $self->serverRequest = $this->serverRequest->withParsedBody($data);
         return $self;
     }
-
     /**
      * @inheritDoc
      */
@@ -150,7 +276,6 @@ class Request implements RequestInterface
     {
         return $this->serverRequest->getAttributes();
     }
-
     /**
      * @inheritDoc
      */
@@ -158,7 +283,6 @@ class Request implements RequestInterface
     {
         return $this->serverRequest->getAttribute($name, $default);
     }
-
     /**
      * @inheritDoc
      */
@@ -168,7 +292,6 @@ class Request implements RequestInterface
         $self->serverRequest = $this->serverRequest->withAttribute($name, $value);
         return $self;
     }
-
     /**
      * @inheritDoc
      */
