@@ -10,6 +10,11 @@ class Request implements RequestInterface
      */
     protected $serverRequest;
 
+    /**
+     * @var array|null
+     */
+    protected $pagination;
+
     /** 
      * @param \Psr\Http\Message\ServerRequestInterface $request 
      */
@@ -19,57 +24,158 @@ class Request implements RequestInterface
     }
 
     /**
-     * Implement PSR interfaces
+     * @param string $name
+     * @param mixed $default
+     * @return array|string|null
      */
-    public function getServerParams(){
-        
+    public function getQueryParam($name, $default = null)
+    {
+        $queryParams = $this->serverRequest->getQueryParams();
+        return isset($queryParams[$name]) ? $queryParams[$name] : $default;
     }
 
-    public function getCookieParams(){
-        
+    /**
+     * @return array
+     */
+    public function getPagination()
+    {
+        if ($this->pagination === null) {
+            $this->setPagination();
+        }
+        return $this->pagination;
     }
 
-    public function withCookieParams(array $cookies){
-        
+    protected function setPagination()
+    {
+        $page    = $this->getQueryParam('page', 1);
+        $perPage = $this->getQueryParam('per_page', 30);
+
+        $this->pagination = [
+            'page'    => $page,
+            'perPage' => $perPage,
+        ];
     }
 
-    public function getQueryParams(){
-        
+    /**
+     * @inheritDoc
+     */
+    public function getServerParams()
+    {
+        return $this->serverRequest->getServerParams();
     }
 
-    public function withQueryParams(array $query){
-        
+    /**
+     * @inheritDoc
+     */
+    public function getCookieParams()
+    {
+        return $this->serverRequest->getCookieParams();
     }
 
-    public function getUploadedFiles(){
-        
+    /**
+     * @inheritDoc
+     */
+    public function withCookieParams(array $cookies)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withCookieParams($cookies);
+        return $self;
     }
 
-    public function withUploadedFiles(array $uploadedFiles){
-        
+    /**
+     * @inheritDoc
+     */
+    public function getQueryParams()
+    {
+        return $this->serverRequest->getQueryParams();
     }
 
-    public function getParsedBody(){
-        
+    /**
+     * @inheritDoc
+     */
+    public function withQueryParams(array $query)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withQueryParams($query);
+        $self->initializeParsedQueryParams();
+        return $self;
     }
 
-    public function withParsedBody($data){
-        
+    /**
+     * @inheritDoc
+     */
+    public function getUploadedFiles()
+    {
+        return $this->serverRequest->getUploadedFiles();
     }
 
-    public function getAttributes(){
-        
+    /**
+     * @inheritDoc
+     */
+    public function withUploadedFiles(array $uploadedFiles)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withUploadedFiles($uploadedFiles);
+        return $self;
     }
 
-    public function getAttribute($name, $default = null){
-        
+    /**
+     * @inheritDoc
+     */
+    public function getParsedBody()
+    {
+        $content = $this->serverRequest->getBody()->getContents();
+        if ($content && empty($this->serverRequest->getParsedBody())) {
+            $this->serverRequest = $this->serverRequest->withParsedBody(
+                json_decode($content, true)
+            );
+        }
+        return $this->serverRequest->getParsedBody();
     }
 
-    public function withAttribute($name, $value){
-        
+    /**
+     * @inheritDoc
+     */
+    public function withParsedBody($data)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withParsedBody($data);
+        return $self;
     }
 
-    public function withoutAttribute($name){
-        
+    /**
+     * @inheritDoc
+     */
+    public function getAttributes()
+    {
+        return $this->serverRequest->getAttributes();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttribute($name, $default = null)
+    {
+        return $this->serverRequest->getAttribute($name, $default);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withAttribute($name, $value)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withAttribute($name, $value);
+        return $self;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withoutAttribute($name)
+    {
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withoutAttribute($name);
+        return $self;
     }
 } 

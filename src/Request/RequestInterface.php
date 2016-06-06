@@ -6,12 +6,16 @@ use Psr\Http\Message\ServerRequestInterface;
 interface RequestInterface extends ServerRequestInterface
 {
     /**
-     * @return array
+     * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
+     *
+     * @param string $name
+     * @param mixed $default
+     * @return array|string
      */
-    public function getSort();
+    public function getQueryParam($name, $default = null);
 
     /**
-     * @return array
+     * @return array|null
      */
     public function getPagination();
 }
