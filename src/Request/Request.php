@@ -51,6 +51,9 @@ class Request implements RequestInterface
     {
         $page    = $this->getQueryParam('page', 1);
         $perPage = $this->getQueryParam('per_page', 30);
+        if ($perPage > 50) {
+            $perPage = 50;
+        }
 
         $this->pagination = [
             'page'    => $page,
