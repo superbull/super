@@ -17,7 +17,7 @@ abstract class ApiException extends \Exception implements ApiExceptionInterface
     public function getErrorData()
     {
         return [
-            'error' => $this->getMessage(),
+            'message' => $this->getMessage(),
             'code'  => $this->getCode(),
         ];
     }

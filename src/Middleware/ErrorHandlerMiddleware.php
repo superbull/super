@@ -32,15 +32,15 @@ class ErrorHandlerMiddleware
             return new JsonResponse($apiException->getErrorData(), $apiException->getCode());
         } catch (RouteNotFoundException $routeNotFoundException) {
             return new JsonResponse([
-                'error' => "Route not found."
+                'message' => "Route not found."
             ], 400);
         } catch (MethodNotAllowedException $methodNotAllowedException) {
             return new JsonResponse([
-                'error' => "Method not allowed."
+                'message' => "Method not allowed."
             ], 400);
         } catch (\Exception $exception) {
             return new JsonResponse([
-                'error' => $exception->getMessage()
+                'message' => $exception->getMessage()
             ], 500);
         }
     }
