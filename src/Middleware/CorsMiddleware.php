@@ -50,6 +50,7 @@ class CorsMiddleware
             if (isset($_SERVER['HTTP_ORIGIN'])) {
                 $response = $response->withHeader('Access-Control-Allow-Origin', "{$_SERVER['HTTP_ORIGIN']}");
                 $response = $response->withHeader('Access-Control-Allow-Credentials', 'true');
+                $response = $response->withHeader('Access-Control-Expose-Headers', 'X-Page, X-Per-Page, X-Total-Count');
             }
 
             return $response;
