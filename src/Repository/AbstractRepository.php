@@ -10,6 +10,7 @@ abstract class AbstractRepository
     protected $pdo;
 
     public function __construct(
+        LoggerInterface $logger,
         ExtendedPdo $pdo
     ) {
         $this->logger = $logger;
